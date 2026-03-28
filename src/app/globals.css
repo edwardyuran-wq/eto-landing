@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Canela Deck";
+  src: url("/fonts/CanelaDeck-Light-Trial.woff2") format("woff2");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Canela Deck";
+  src: url("/fonts/CanelaDeck-Regular-Trial.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Canela Deck";
+  src: url("/fonts/CanelaDeck-Medium-Trial.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@theme inline {
+  /* Green family */
+  --color-green-900: #1C2A24;
+  --color-green-800: #304A3E;
+  --color-green-700: #3D5C4A;
+  --color-green-600: #4E7060;
+  --color-green-500: #5A7A6A;
+
+  /* Cream family */
+  --color-cream-100: #FAF8F5;
+  --color-cream-200: #F0EBE3;
+  --color-cream-300: #E5DFD4;
+  --color-cream-400: #D5CDC0;
+
+  /* Accents */
+  --color-brown: #83725C;
+  --color-dark-brown: #4A3B2E;
+  --color-red-500: #C0392B;
+  --color-green-check: #2D6B45;
+
+  /* Fonts */
+  --font-heading: "Canela Deck", Georgia, serif;
+  --font-body: "Satoshi", system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream-100);
+  color: var(--color-green-900);
+  font-family: var(--font-body);
+}
