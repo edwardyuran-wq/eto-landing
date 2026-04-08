@@ -99,9 +99,9 @@ export default function Strategy({ dict }: { dict: Dictionary }) {
               viewport={{ once: true, margin: "-80px" }}
               variants={cardVariants}
               custom={i + 1}
-              className="group rounded-2xl bg-cream-100 p-8 border border-cream-300/60 shadow-[0_4px_24px_-4px_rgba(28,42,36,0.10)] transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(28,42,36,0.16)] hover:-translate-y-1 text-center"
+              className="group rounded-2xl bg-cream-100 p-8 border border-cream-300/60 shadow-[0_4px_24px_-4px_rgba(28,42,36,0.10)] transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(28,42,36,0.16)] hover:-translate-y-1"
             >
-              <div className="mx-auto inline-flex items-center justify-center rounded-xl bg-green-800 p-3 text-cream-100 transition-colors duration-300 group-hover:bg-green-600 group-hover:text-white">
+              <div className="inline-flex items-center justify-center rounded-xl bg-green-800 p-3 text-cream-100 transition-colors duration-300 group-hover:bg-green-600 group-hover:text-white">
                 {pillarIcons[i]}
               </div>
               <h3 className="mt-5 font-heading text-xl text-green-900">

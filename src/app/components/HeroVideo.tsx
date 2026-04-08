@@ -4,8 +4,6 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Dictionary } from "../[locale]/dictionaries";
 
-const CHAR_DELAY = 65;
-
 const HERO_VIDEOS = [
   { src: "/images/hero-1.mp4", rate: 1, filter: "", duration: 7000, startAt: 0 },
   { src: "/images/hero-5.mp4", rate: 1, filter: "", duration: 7000, startAt: 0 },
@@ -15,39 +13,18 @@ const HERO_VIDEOS = [
   { src: "/images/hero-3.mp4", rate: 1, filter: "", duration: 7000, startAt: 0 },
 ];
 
-function Typewriter({ text, delay = 0 }: { text: string; delay?: number }) {
-  const [count, setCount] = useState(0);
-  const [started, setStarted] = useState(false);
-  const prefersReduced = useReducedMotion();
-
-  useEffect(() => {
-    if (prefersReduced) {
-      setCount(text.length);
-      return;
-    }
-    const startTimer = setTimeout(() => setStarted(true), delay);
-    return () => clearTimeout(startTimer);
-  }, [delay, prefersReduced, text.length]);
-
-  useEffect(() => {
-    if (prefersReduced || !started || count >= text.length) return;
-    const timer = setTimeout(() => setCount((c) => c + 1), CHAR_DELAY);
-    return () => clearTimeout(timer);
-  }, [started, count, text.length, prefersReduced]);
-
-  return (
-    <span>
-      {text.slice(0, count)}
-      {!prefersReduced && count < text.length && (
-        <motion.span
-          animate={{ opacity: [1, 0] }}
-          transition={{ repeat: Infinity, duration: 0.6 }}
-          className="inline-block w-[3px] h-[0.85em] ml-0.5 align-baseline bg-cream-300/80"
-        />
-      )}
-    </span>
-  );
-}
+/* Mask reveal — text rises into view from behind an invisible edge */
+const maskReveal = {
+  hidden: { clipPath: "inset(0 0 100% 0)", y: 30 },
+  visible: {
+    clipPath: "inset(0 0 -20% 0)",
+    y: 0,
+    transition: {
+      duration: 1,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  },
+};
 
 export default function HeroVideo({ dict }: { dict: Dictionary }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,15 +66,6 @@ export default function HeroVideo({ dict }: { dict: Dictionary }) {
     });
   }, [activeIndex]);
 
-  const heroInitial = prefersReduced
-    ? { opacity: 1, y: 0 }
-    : { opacity: 0, y: 40, filter: "blur(8px)" };
-  const heroAnimate = { opacity: 1, y: 0, filter: "blur(0px)" };
-  const heroTransition = { type: "spring" as const, stiffness: 60, damping: 18, mass: 1 };
-
-  const ctaDelay = prefersReduced ? 0 : 1 + slogan.length * (CHAR_DELAY / 1000) + 0.8;
-  const scrollDelay = prefersReduced ? 0 : ctaDelay + 0.4;
-
   return (
     <section className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden">
       {/* Video carousel */}
@@ -125,22 +93,22 @@ export default function HeroVideo({ dict }: { dict: Dictionary }) {
       <div className="absolute inset-0 bg-green-900/60" />
 
       {/* Content */}
-      <motion.div
-        initial={heroInitial}
-        animate={heroAnimate}
-        transition={heroTransition}
-        className="relative z-10 text-center px-6"
-      >
-        <h1 className="font-heading font-medium text-3xl leading-snug tracking-tight text-cream-100 sm:text-4xl md:text-5xl md:tracking-tighter lg:text-6xl min-h-[1.4em]">
-          <Typewriter text={slogan} delay={1000} />
-        </h1>
+      <div className="relative z-10 text-center px-6">
+        <motion.h1
+          initial={prefersReduced ? "visible" : "hidden"}
+          animate="visible"
+          variants={maskReveal}
+          className="font-heading font-medium text-3xl leading-snug tracking-tight text-cream-100 sm:text-4xl md:text-5xl md:tracking-tighter lg:text-6xl"
+        >
+          {slogan}
+        </motion.h1>
 
         <motion.a
           href="#contact"
           initial={prefersReduced ? { opacity: 1 } : { opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
-            delay: ctaDelay,
+            delay: prefersReduced ? 0 : 1.2,
             type: "spring",
             stiffness: 80,
             damping: 16,
@@ -149,13 +117,13 @@ export default function HeroVideo({ dict }: { dict: Dictionary }) {
         >
           {dict.hero.cta}
         </motion.a>
-      </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
         initial={prefersReduced ? { opacity: 1 } : { opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: scrollDelay, duration: 1 }}
+        transition={{ delay: prefersReduced ? 0 : 1.6, duration: 1 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
         <motion.div
