@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "about": "About",
+    "philosophy": "Philosophy",
+    "contact": "Contact"
+  },
+  "hero": {
+    "slogan": "Partnering with next generation leaders",
+    "cta": "Get in touch"
+  },
+  "about": {
+    "label": "Who we are",
+    "heading": "Success starts with trust",
+    "body": "Eto Capital is a Nordic owner partner working closely with founders and management teams. We believe the best companies are built by people who are passionate about what they do. Our role is to give them the tools, the network, and the support to reach their full potential."
+  },
+  "strategy": {
+    "label": "Our philosophy",
+    "heading": "Accelerating entrepreneurship, with respect at its core",
+    "pillars": [
+      {
+        "title": "Hands-on commitment",
+        "description": "We don't sit on the sidelines. We roll up our sleeves and work side by side with the management team — in strategy, in recruitment, in the everyday."
+      },
+      {
+        "title": "Entrepreneur first",
+        "description": "The company is your life's work. We listen before we act, respect your vision, and build on what already works. Our success is measured by yours."
+      },
+      {
+        "title": "Built for the long term",
+        "description": "We don't chase quick wins. Every investment is made with the conviction that lasting value creation requires patience, trust, and genuine commitment."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Eto Capital is a Nordic owner partner working closely with founders and management teams to build market-leading companies.",
+    "ctaHeading": "Get in touch",
+    "getInTouch": "Get in touch",
+    "location": "Location",
+    "copyright": "Eto Capital"
+  },
+  "langToggle": "SV"
+}

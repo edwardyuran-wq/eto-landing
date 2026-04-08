@@ -1,0 +1,42 @@
+{
+  "nav": {
+    "about": "Om oss",
+    "philosophy": "Filosofi",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "slogan": "Partner till framtidens ledare",
+    "cta": "Kontakta oss"
+  },
+  "about": {
+    "label": "Vilka vi är",
+    "heading": "Framgång börjar med förtroende",
+    "body": "Eto Capital är en nordisk ägarpartner som arbetar nära grundare och ledningsteam. Vi tror att de bästa bolagen byggs av människor som brinner för det de gör. Vår roll är att ge dem verktygen, nätverket och stödet att nå sin fulla potential."
+  },
+  "strategy": {
+    "label": "Vår filosofi",
+    "heading": "Vi accelererar entreprenörskap, med respekt som grund",
+    "pillars": [
+      {
+        "title": "Operativt engagemang",
+        "description": "Vi sitter inte vid sidan av planen. Vi kavlar upp ärmarna och arbetar sida vid sida med ledningsteamet: i strategifrågor, i rekryteringar, i vardagen."
+      },
+      {
+        "title": "Entreprenören först",
+        "description": "Bolaget är ditt livsverk. Vi lyssnar innan vi agerar, respekterar din vision och bygger vidare på det som redan fungerar. Vår framgång mäts i din."
+      },
+      {
+        "title": "Byggt för lång sikt",
+        "description": "Vi jagar inte snabba klipp. Varje investering görs med övertygelsen att uthålligt värdeskapande kräver tålamod, tillit och genuint engagemang."
+      }
+    ]
+  },
+  "footer": {
+    "tagline": "Eto Capital är en nordisk ägarpartner som arbetar nära grundare och ledningsteam för att bygga marknadsledande bolag.",
+    "ctaHeading": "Kontakta oss",
+    "getInTouch": "Kontakta oss",
+    "location": "Plats",
+    "copyright": "Eto Capital"
+  },
+  "langToggle": "EN"
+}

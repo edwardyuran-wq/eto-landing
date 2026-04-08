@@ -1,82 +1,109 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import type { Dictionary } from "../[locale]/dictionaries";
 
-const pillars = [
-  {
-    title: "Deep sector specialization",
-    description:
-      "We focus on regulated, non-cyclical sectors where deep domain knowledge creates a sustainable competitive advantage. Our sector expertise allows us to identify value where generalists cannot.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Boots on the ground",
-    description:
-      "We are hands-on operators, not remote capital allocators. Our team works side-by-side with management to drive commercial excellence, operational improvement, and strategic growth.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Partnership model",
-    description:
-      "We stand alongside founders, aligning incentives for long-term value creation. Our approach ensures management teams remain motivated and empowered throughout the journey.",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-      </svg>
-    ),
-  },
+const pillarIcons = [
+  <svg key="wrench" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
+  </svg>,
+  <svg key="person" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+  </svg>,
+  <svg key="clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} className="h-8 w-8">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>,
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+/* Fidelio-style mask reveal */
+const maskReveal = {
+  hidden: { clipPath: "inset(0 0 100% 0)", y: 20 },
   visible: (i: number) => ({
-    opacity: 1,
+    clipPath: "inset(0 0 -20% 0)",
     y: 0,
-    transition: { delay: i * 0.15, duration: 0.6, ease: "easeOut" as const },
+    transition: {
+      delay: i * 0.15,
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
   }),
 };
 
-export default function Strategy() {
-  return (
-    <section id="philosophy" className="bg-cream-200 py-24 md:py-32">
-      <div className="mx-auto max-w-5xl px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={fadeUp}
-          custom={0}
-          className="text-center"
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-green-600">
-            Core philosophy
-          </p>
-          <h2 className="mt-3 font-heading text-3xl text-green-900 sm:text-4xl md:text-5xl">
-            Accelerating entrepreneurship, with respect at its core
-          </h2>
-        </motion.div>
+const fadeUp = {
+  hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: {
+      delay: i * 0.18,
+      type: "spring" as const,
+      stiffness: 70,
+      damping: 18,
+    },
+  }),
+};
 
-        <div className="mt-16 grid gap-8 md:grid-cols-3">
-          {pillars.map((pillar, i) => (
+const noMotion = {
+  hidden: { opacity: 1, y: 0, filter: "blur(0px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+};
+
+export default function Strategy({ dict }: { dict: Dictionary }) {
+  const prefersReduced = useReducedMotion();
+  const headingVariants = prefersReduced ? noMotion : maskReveal;
+  const cardVariants = prefersReduced ? noMotion : fadeUp;
+
+  return (
+    <section id="philosophy" className="relative overflow-hidden py-24 md:py-32">
+      {/* Marble texture background with cream overlay */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <img
+          src="/images/philosophy-bg.jpg"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-cream-200/88" />
+      </div>
+
+      <div className="relative mx-auto max-w-5xl px-6">
+        <div className="text-center">
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={headingVariants}
+            custom={0}
+            className="text-xs font-semibold uppercase tracking-[0.08em] text-green-600"
+          >
+            {dict.strategy.label}
+          </motion.p>
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={headingVariants}
+            custom={0.5}
+            className="mt-3 font-heading text-3xl tracking-tight text-green-900 sm:text-4xl md:text-5xl md:tracking-tighter"
+          >
+            {dict.strategy.heading}
+          </motion.h2>
+        </div>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-3">
+          {dict.strategy.pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              variants={fadeUp}
+              variants={cardVariants}
               custom={i + 1}
-              className="rounded-lg bg-white p-8 shadow-sm"
+              className="group rounded-2xl bg-cream-100 p-8 border border-cream-300/60 shadow-[0_4px_24px_-4px_rgba(28,42,36,0.10)] transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(28,42,36,0.16)] hover:-translate-y-1 text-center"
             >
-              <div className="text-green-700">{pillar.icon}</div>
+              <div className="mx-auto inline-flex items-center justify-center rounded-xl bg-green-800 p-3 text-cream-100 transition-colors duration-300 group-hover:bg-green-600 group-hover:text-white">
+                {pillarIcons[i]}
+              </div>
               <h3 className="mt-5 font-heading text-xl text-green-900">
                 {pillar.title}
               </h3>
