@@ -15,6 +15,20 @@ const pillarIcons = [
   </svg>,
 ];
 
+/* Fidelio-style mask reveal */
+const maskReveal = {
+  hidden: { clipPath: "inset(0 0 100% 0)", y: 20 },
+  visible: (i: number) => ({
+    clipPath: "inset(0 0 -20% 0)",
+    y: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
+  }),
+};
+
 const fadeUp = {
   hidden: { opacity: 0, y: 24, filter: "blur(6px)" },
   visible: (i: number) => ({
@@ -37,26 +51,44 @@ const noMotion = {
 
 export default function Strategy({ dict }: { dict: Dictionary }) {
   const prefersReduced = useReducedMotion();
-  const variants = prefersReduced ? noMotion : fadeUp;
+  const headingVariants = prefersReduced ? noMotion : maskReveal;
+  const cardVariants = prefersReduced ? noMotion : fadeUp;
 
   return (
-    <section id="philosophy" className="bg-cream-200 py-24 md:py-32">
-      <div className="mx-auto max-w-5xl px-6">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-80px" }}
-          variants={variants}
-          custom={0}
-          className="text-center"
-        >
-          <p className="text-xs font-semibold uppercase tracking-[0.08em] text-green-600">
+    <section id="philosophy" className="relative overflow-hidden py-24 md:py-32">
+      {/* Marble texture background with cream overlay */}
+      <div className="absolute inset-0" aria-hidden="true">
+        <img
+          src="/images/philosophy-bg.jpg"
+          alt=""
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-cream-200/88" />
+      </div>
+
+      <div className="relative mx-auto max-w-5xl px-6">
+        <div className="text-center">
+          <motion.p
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={headingVariants}
+            custom={0}
+            className="text-xs font-semibold uppercase tracking-[0.08em] text-green-600"
+          >
             {dict.strategy.label}
-          </p>
-          <h2 className="mt-3 font-heading text-3xl text-green-900 sm:text-4xl md:text-5xl">
+          </motion.p>
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-80px" }}
+            variants={headingVariants}
+            custom={0.5}
+            className="mt-3 font-heading text-3xl tracking-tight text-green-900 sm:text-4xl md:text-5xl md:tracking-tighter"
+          >
             {dict.strategy.heading}
-          </h2>
-        </motion.div>
+          </motion.h2>
+        </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-3">
           {dict.strategy.pillars.map((pillar, i) => (
@@ -65,11 +97,11 @@ export default function Strategy({ dict }: { dict: Dictionary }) {
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, margin: "-80px" }}
-              variants={variants}
+              variants={cardVariants}
               custom={i + 1}
-              className="group rounded-2xl bg-white/80 backdrop-blur-sm p-8 border border-cream-300/50 shadow-[0_4px_24px_-4px_rgba(28,42,36,0.06)] transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(28,42,36,0.12)] hover:-translate-y-1"
+              className="group rounded-2xl bg-cream-100 p-8 border border-cream-300/60 shadow-[0_4px_24px_-4px_rgba(28,42,36,0.10)] transition-all duration-300 hover:shadow-[0_12px_32px_-8px_rgba(28,42,36,0.16)] hover:-translate-y-1 text-center"
             >
-              <div className="inline-flex items-center justify-center rounded-xl bg-cream-200/80 p-3 text-green-700 transition-colors duration-300 group-hover:bg-green-800 group-hover:text-cream-100">
+              <div className="mx-auto inline-flex items-center justify-center rounded-xl bg-green-800 p-3 text-cream-100 transition-colors duration-300 group-hover:bg-green-600 group-hover:text-white">
                 {pillarIcons[i]}
               </div>
               <h3 className="mt-5 font-heading text-xl text-green-900">

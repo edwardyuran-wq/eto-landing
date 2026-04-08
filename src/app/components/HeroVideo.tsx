@@ -131,7 +131,7 @@ export default function HeroVideo({ dict }: { dict: Dictionary }) {
         transition={heroTransition}
         className="relative z-10 text-center px-6"
       >
-        <h1 className="font-heading font-medium text-3xl leading-snug text-cream-100 sm:text-4xl md:text-5xl lg:text-6xl min-h-[1.4em]">
+        <h1 className="font-heading font-medium text-3xl leading-snug tracking-tight text-cream-100 sm:text-4xl md:text-5xl md:tracking-tighter lg:text-6xl min-h-[1.4em]">
           <Typewriter text={slogan} delay={1000} />
         </h1>
 
